@@ -1,0 +1,120 @@
+/*
+Theme Name: mrozanski-blog
+Theme URI: https://mrozanski.github.io/
+Author: Mariano Rozanski
+Author URI: https://mrozanski.github.io/
+Description: A minimalist, content-focused blog theme.
+Version: 1.0
+*/
+
+/* ==========================
+    FONT IMPORTS
+   ========================== */
+
+/* Google Fonts - Ubuntu and Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/* CSS Variables */
+:root {
+    --color-text: #353535ff;
+    --caribbean-current: #3c6e71ff;
+    --color-background: #ffffffff;
+    --platinum: #d9d9d9ff;
+    --indigo-dye: #284b63;
+    --color-secondary: var(--indigo-dye);
+    --color-accent: var(--caribbean-current);
+    --header-height: 60px;
+    --font-heading: 'Ubuntu', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+  
+  body, p, li, button {
+    font-family: var(--font-body);
+  }
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    line-height: 1.25rem;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    font-size: 18px;
+    font-weight: 400;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+p, li {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+a:link,
+a:visited {
+    color: #333;
+    border-bottom: 2px solid #d3d3d3;
+}
+
+a:hover {
+    color: #333;
+    border-bottom: 2px solid #666666;
+}
+
+/* List styling */
+ul,
+ol {
+    line-height: 1.5rem;
+    padding-left: 25px;
+    list-style-position: outside;
+    margin-bottom: 1.7rem;
+}
+
+ul li,
+ol li {
+    margin-bottom: -0.2rem;
+    padding-left: 5px;
+}
+
+/* Heading styles */
+h1,
+h2 {
+    font-family: var(--font-heading);
+    line-height: 1.25;
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 1rem 0;
+    text-align: left;
+}
+
+h2 {
+    font-size: 1.4rem;
+}
+
+h2 a {
+    border-bottom: none;
+    color: inherit;
+    transition: color 0.8s ease;
+}
+
+h2 a:hover {
+    color: #b0b0b0;
+    text-decoration: none;
+}
+
+img,
+a img {
+    border: 0;
+    border-bottom: none;
+    padding: 0;
+}
