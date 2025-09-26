@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DotSur - Technical Product Leadership in the AI Era</title>
     <link rel="stylesheet" href="dotsur.css">
+    <link rel="icon" href="favicon.ico">
 </head>
 <body>
     <header>
@@ -12,12 +13,15 @@
             <div class="logo">
                 <img src="dotsur-logo.png" alt="DotSur">
             </div>
-            <ul>
+            <!-- <ul>
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#team">Team</a></li>
                 <li><a href="#contact">Contact</a></li>
-            </ul>
+            </ul> -->
+            <div class="cta">
+                <button class="btn secondary" onclick="openContactForm()">Get In Touch</button>
+            </div>
         </nav>
     </header>
 
@@ -30,7 +34,7 @@
             <p>Empowering startups to architect, ship, and scale exceptional products through strategic technical leadership and AI-enabled innovation.</p>
             <div class="cta-buttons">
                 <a href="#about" class="btn primary">Learn More</a>
-                <a href="#contact" class="btn secondary">Get Started</a>
+                <!-- <button class="btn secondary" onclick="openContactForm()">Get In Touch</button> -->
             </div>
         </section>
 
@@ -109,13 +113,13 @@
             <div class="footer-section">
                 <h3>Leadership Team</h3>
                 <div class="team-member">
-                    <h4>Mariano Rozanski</h4>
-                    <p>Founder & Technical Product Leader</p>
-                    <a href="https://www.linkedin.com/in/marianorozanski">Technical Blog</a>
+                    <h4>Silvia A. Mendez</h4>
+                    <p>Co-founder & Business Strategy</p>
                 </div>
                 <div class="team-member">
-                    <h4>Silvia Rozanski</h4>
-                    <p>Co-founder & Business Strategy</p>
+                    <h4>Mariano Rozanski</h4>
+                    <p>Co-founder & Technical Product Leader</p>
+                    <a href="https://mrozanski.github.io">Technical Blog</a>
                 </div>
             </div>
             
@@ -133,7 +137,7 @@
             <div class="footer-section">
                 <h3>Contact</h3>
                 <address>
-                    <p><a href="mailto:mariano@dotsur.co">mariano@dotsur.co</a></p>
+                    <p><a href="https://www.linkedin.com/in/marianorozanski/">LinkedIn Mariano Rozanski</a></p>
                     <p>Based in Colorado, serving clients nationwide</p>
                 </address>
                 <p class="tagline">Remote-first, results-driven</p>
@@ -141,9 +145,115 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2024 DotSur. Technical product leadership in the AI era.</p>
-            <a href="#contact" class="btn">Start a Conversation</a>
+            <p>&copy; 2025 DotSur. Technical product leadership in the AI era.</p>
+            <!-- <a href="#contact" class="btn">Start a Conversation</a> -->
+            <button class="btn primary" onclick="openContactForm()">Start a Conversation</button>
         </div>
     </footer>
+     <!-- Contact Form Overlay -->
+     <div id="contactOverlay" class="overlay" onclick="closeContactForm(event)">
+        <div class="form-container" onclick="event.stopPropagation()">
+            <h2>Contact Us</h2>
+            
+            <div id="successMessage" class="success-message">
+                Thank you! Your message has been sent successfully.
+            </div>
+            
+            <div id="errorMessage" class="error-message">
+                Something went wrong. Please try again.
+            </div>
+            
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required placeholder="Tell us about your project or question..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeContactForm()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function openContactForm() {
+            document.getElementById('contactOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeContactForm(event) {
+            if (event && event.target !== event.currentTarget) return;
+            
+            document.getElementById('contactOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Reset form
+            document.getElementById('contactForm').reset();
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // Handle form submission
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            form.classList.add('loading');
+            
+            // Hide any previous messages
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            try {
+                const formData = new FormData(form);
+                
+                const response = await fetch('contact_handler.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    document.getElementById('successMessage').style.display = 'block';
+                    form.reset();
+                    
+                    // Close form after 2 seconds
+                    setTimeout(() => {
+                        closeContactForm();
+                    }, 2000);
+                } else {
+                    throw new Error(result.message || 'Unknown error');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('errorMessage').textContent = 'Failed to send message. Please try again.';
+            } finally {
+                // Reset loading state
+                submitBtn.textContent = originalText;
+                form.classList.remove('loading');
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeContactForm();
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,12 @@
+# Deny access to JSON data files
+<Files "*.json">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Optional: Deny access to PHP files that shouldn't be accessed directly
+# Remove this if you want contact_handler.php to be accessible
+# <Files "contact_handler.php">
+#     Order Allow,Deny
+#     Deny from all
+# </Files>

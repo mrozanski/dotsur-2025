@@ -141,7 +141,7 @@ nav {
     width: auto;
 }
 
-nav ul {
+nav ul, nav.cta {
     display: flex;
     list-style: none;
     gap: 2rem;
@@ -225,7 +225,7 @@ section {
 
 .btn {
     display: inline-block;
-    padding: 0.875rem 2rem;
+    padding: 0.5rem 2rem;
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
@@ -493,6 +493,139 @@ footer {
     padding: 0.5rem 1.5rem;
     font-size: 0.9rem;
 }
+/* Overlay Styles */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay .form-container {
+    background: white;
+    color: #333;
+    padding: 2rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.overlay.active .form-container {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.overlay .form-container h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+}
+
+.overlay .form-group {
+    margin-bottom: 1rem;
+}
+
+.overlay .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.overlay .form-group input,
+.overlay .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.overlay .form-group input:focus,
+.overlay .form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.overlay .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.overlay .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.overlay .btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.overlay .btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.overlay .btn-primary:hover {
+    background: #5a6fd8;
+}
+
+.overlay .btn-secondary {
+    background: #f1f1f1;
+    color: #333;
+}
+
+.overlay .btn-secondary:hover {
+    background: #e1e1e1;
+}
+
+.overlay .loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.overlay .success-message {
+    display: none;
+    background: #d4edda;
+    color: #155724;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.overlay .error-message {
+    display: none;
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
 
 /* ==========================
     RESPONSIVE DESIGN
@@ -554,6 +687,10 @@ footer {
         flex-direction: column;
         text-align: center;
         padding: 1.5rem 1rem;
+    }
+    .form-container {
+        padding: 1.5rem;
+        margin: 1rem;
     }
 }
 
