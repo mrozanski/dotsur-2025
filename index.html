@@ -127,8 +127,8 @@
                 <h3>Learn More</h3>
                 <ul>
                     <li>
-                        <a href="#">Guitar Registry Project</a>
-                        <small>Current AI/blockchain project</small>
+                        <a href="https://universalguitarregistry.com/">Guitar Registry Project</a>
+                        <small>Current Preservation/AI/blockchain project</small>
                     </li>
                     <li><a href="#">View Project</a></li>
                 </ul>
@@ -217,24 +217,25 @@
             
             try {
                 const formData = new FormData(form);
-                
-                const response = await fetch('contact_handler.php', {
+
+                const response = await fetch('https://formspree.io/f/xreapabn', {
                     method: 'POST',
+                    headers: { 'Accept': 'application/json' },
                     body: formData
                 });
-                
+
                 const result = await response.json();
-                
-                if (result.success) {
+
+                if (response.ok) {
                     document.getElementById('successMessage').style.display = 'block';
                     form.reset();
-                    
+
                     // Close form after 2 seconds
                     setTimeout(() => {
                         closeContactForm();
                     }, 2000);
                 } else {
-                    throw new Error(result.message || 'Unknown error');
+                    throw new Error((result.errors || []).map(e => e.message).join(', ') || 'Unknown error');
                 }
                 
             } catch (error) {
